@@ -9,14 +9,8 @@ use Livewire\Component;
 class Create extends Component
 {
     use AuthorizesRequests;
-    public ?string $body = null;
 
-    public function mount()
-    {
-        if(!auth()->check()) {
-            return redirect(route('login'));
-        }
-    }
+    public ?string $body = null;
 
     public function render()
     {
@@ -26,6 +20,10 @@ class Create extends Component
     public function tweet() 
     {
         $this->authorize('create', Tweet::class);
+
+        $this->validate([
+            'body' => 'required',   
+        ]);
 
         Tweet::query()->create([
             'body'       => $this->body,
