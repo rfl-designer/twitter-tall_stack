@@ -17,12 +17,12 @@ class Create extends Component
         return view('livewire.tweet.create');
     }
 
-    public function tweet() 
+    public function tweet()
     {
         $this->authorize('create', Tweet::class);
 
         $this->validate([
-            'body' => ['required', 'max:140'],   
+            'body' => ['required', 'max:140'],
         ]);
 
         Tweet::query()->create([
